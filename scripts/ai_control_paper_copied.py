@@ -289,9 +289,9 @@ def run_evaluation(
         trusted_model=trusted_model,
         untrusted_model=untrusted_model,
         system_prompt=honest_system_prompt,
-        max_sandboxes=50,
+        max_sandboxes=20,
         max_tasks=2,  # Limit max tasks to give caching a chance to work
-        max_samples=50,
+        max_samples=20,
     )
 
     # Use APPS setting for backdooring tasks
