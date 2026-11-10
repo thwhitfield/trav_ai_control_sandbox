@@ -3,5 +3,11 @@ name = "trav-ai-control-sandbox"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "accelerate>=1.15.0",
+    "anthropic>=2.8.0",
+    "google-genai>=3.0.0",
     "inspect-ai>=0.3.289",
+    "openai>=3.49.0",
+    "torch>=2.15.0",
+    "transformers>=5.22.2",
 ]
