@@ -1,34 +1,20 @@
-.PHONY: install dev clean test lint format check run help
+.PHONY: help install upgrade lint format clean view
 
 help:
 	@echo "Available targets:"
-	@echo "  install  - Install project dependencies"
-	@echo "  dev      - Install with dev dependencies"
-	@echo "  clean    - Remove build artifacts and caches"
-	@echo "  test     - Run tests"
-	@echo "  lint     - Run linter"
-	@echo "  format   - Format code"
-	@echo "  check    - Run linter and type checks"
-	@echo "  run      - Run the application"
+	@echo "  install  - Install dependencies (incl. dev group)"
+	@echo "  upgrade  - Upgrade all dependencies to latest and re-sync"
+	@echo "  lint     - Run ruff linter"
+	@echo "  format   - Format code with ruff"
+	@echo "  clean    - Remove caches"
+	@echo "  view     - Open the Inspect log viewer"
 
 install:
 	uv sync
 
-dev:
-	uv sync --all-extras
-
-clean:
-	rm -rf build/
-	rm -rf dist/
-	rm -rf *.egg-info/
-	rm -rf .pytest_cache/
-	rm -rf .mypy_cache/
-	rm -rf .ruff_cache/
-	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-	find . -type f -name "*.pyc" -delete 2>/dev/null || true
-
-test:
-	uv run pytest
+upgrade:
+	uv lock --upgrade
+	uv sync
 
 lint:
 	uv run ruff check .
@@ -36,6 +22,9 @@ lint:
 format:
 	uv run ruff format .
 
-check: lint
-	uv run mypy .
+clean:
+	rm -rf .ruff_cache/
+	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
 
+view:
+	uv run inspect view
